@@ -113,7 +113,7 @@ coding_style:
 build:
     environment:
         php:
-            version: '5.6'
+            version: '7.0'
         java: java-8-oracle
         postgresql: false
         mongodb: false
@@ -143,6 +143,9 @@ build:
         directories:
             - ~/.cache/pip
     tests:
+        before:
+            - "rm $(dirname $(phpenv which php))/../etc/conf.d/xdebug.ini"
+            - "pecl uninstall xdebug"
         override:
             -
                 command: 'vendor/bin/phpunit --coverage-clover=build/logs/clover.xml'
